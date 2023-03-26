@@ -7,6 +7,12 @@ module HealthMonitor
     class CacheException < StandardError; end
 
     class Cache < Base
+      class Configuration
+        def cache_interval=(value)
+          HealthMonitor::Providers::Cache.cache_interval value
+        end
+      end
+
       def check!
         time = Time.now.to_s
 
@@ -19,6 +25,14 @@ module HealthMonitor
       end
 
       private
+
+      class << self
+        private
+
+        def configuration_class
+          ::HealthMonitor::Providers::Cache::Configuration
+        end
+      end
 
       def key
         @key ||= ['health', request.try(:remote_ip)].join(':')

@@ -177,6 +177,8 @@ The following services are currently supported:
 * Resque
 * Delayed Job
 
+#### TODO add cache_interval documentation
+
 ## Configuration
 
 ### Adding Providers
