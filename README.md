@@ -177,8 +177,6 @@ The following services are currently supported:
 * Resque
 * Delayed Job
 
-#### TODO add cache_interval documentation
-
 ## Configuration
 
 ### Adding Providers
@@ -205,7 +203,7 @@ end
 
 ### Provider Configuration
 
-Some of the providers can also accept additional configuration:
+Providers can also accept additional configuration. Additionally, all providers support caching - see section [Adding Provider-level Caching](#adding-provider-level-caching):
 
 ```ruby
 # Sidekiq
@@ -243,6 +241,7 @@ HealthMonitor.configure do |config|
   config.redis.configure do |redis_config|
     redis_config.url = 'redis://user:pass@example.redis.com:90210/'
     redis_config.max_used_memory = 200
+    redis_config.cache_interval = 10.seconds
   end
 end
 ```
@@ -342,6 +341,40 @@ HealthMonitor.configure do |config|
   }
 end
 ```
+### Adding provider-level caching
+Note: Caching disabled by default.
+First set `provider_cache` to add a dedicated cache instance to store provider results. Then pass `cache_interval` for a given provider.
+
+```ruby
+HealthMonitor.configure do |config|
+  config.provider_cache = ActiveSupport::Cache::MemoryStore.new
+end
+```
+
+#### Setting cache interval for a custom provider
+```ruby
+class CustomProvider < HealthMonitor::Providers::Base
+  cache_interval 1.minute
+
+  def check!
+    raise 'Oh oh!'
+  end
+end
+```
+
+#### Setting cache interval for an in-house provider
+
+```ruby
+HealthMonitor.configure do |config|
+  config.database.configure do |database_config|
+    database_config.cache_interval = 10.seconds
+  end
+  config.redis.configure do |redis_config|
+    redis_config.cache_interval = 20.seconds
+  end
+end
+```
+
 
 ### Customizing the path
 
