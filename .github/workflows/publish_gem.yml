@@ -3,7 +3,8 @@ name: Publish Ruby Gem
 on:
   push:
     branches:
-      - "add-provider-level-cache" #"main"
+      - main
+  workflow_dispatch:
 
 jobs:
   build-and-publish:
