@@ -1,0 +1,10 @@
+name: Publish Ruby Gem
+
+on:
+  push:
+    branches:
+      - 'add-provider-level-cache' # 'main'
+
+jobs:
+  build-and-publish:
+    uses: fundthatflip/github-actions/.github/workflows/publish_gem.yml@PE-1013
