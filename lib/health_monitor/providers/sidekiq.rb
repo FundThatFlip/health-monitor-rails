@@ -40,6 +40,11 @@ module HealthMonitor
           queues[DEFAULT_QUEUE_NAME]
         end
 
+        # TODO try to use use inflections instead of hardcoding
+        def cache_interval=(value)
+          HealthMonitor::Providers::Sidekiq.cache_interval value
+        end
+
         def add_queue_configuration(queue_name, latency: DEFAULT_LATENCY_TIMEOUT, queue_size: DEFAULT_QUEUES_SIZE)
           raise SidekiqException.new('Queue name is mandatory') if queue_name.blank?
 

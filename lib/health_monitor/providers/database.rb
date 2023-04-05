@@ -7,11 +7,27 @@ module HealthMonitor
     class DatabaseException < StandardError; end
 
     class Database < Base
+      class Configuration
+        def cache_interval=(value)
+          HealthMonitor::Providers::Database.cache_interval value
+        end
+      end
+
       def check!
         # Check connection to the DB:
         ActiveRecord::Migrator.current_version
       rescue Exception => e
         raise DatabaseException.new(e.message)
+      end
+
+      private
+
+      class << self
+        private
+
+        def configuration_class
+          ::HealthMonitor::Providers::Database::Configuration
+        end
       end
     end
   end

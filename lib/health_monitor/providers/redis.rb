@@ -17,6 +17,10 @@ module HealthMonitor
         def initialize
           @url = DEFAULT_URL
         end
+
+        def cache_interval=(value)
+          HealthMonitor::Providers::Redis.cache_interval value
+        end
       end
 
       class << self

@@ -3,8 +3,9 @@
 $LOAD_PATH.push File.expand_path('lib', __dir__)
 require 'health_monitor/version'
 
+#TODO update metadata
 Gem::Specification.new do |s|
-  s.name = 'health-monitor-rails'
+  s.name = 'health-monitor-rails' #'health-monitor-rails-starter'
   s.version = HealthMonitor::VERSION
   s.platform = Gem::Platform::RUBY
   s.authors = ['Leonid Beder']
