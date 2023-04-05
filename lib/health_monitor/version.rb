@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module HealthMonitor
-  VERSION = '9.4.1'
+  VERSION = '100.0.0.alpha.1'
 end
