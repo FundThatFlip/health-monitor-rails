@@ -7,6 +7,12 @@ module HealthMonitor
     class DatabaseException < StandardError; end
 
     class Database < Base
+      class Configuration
+        def cache_interval=(value)
+          HealthMonitor::Providers::Database.cache_interval value
+        end
+      end
+
       def check!
         failed_databases = []
 
@@ -19,6 +25,16 @@ module HealthMonitor
         raise "unable to connect to: #{failed_databases.uniq.join(',')}" unless failed_databases.empty?
       rescue Exception => e
         raise DatabaseException.new(e.message)
+      end
+
+      private
+
+      class << self
+        private
+
+        def configuration_class
+          ::HealthMonitor::Providers::Database::Configuration
+        end
       end
     end
   end

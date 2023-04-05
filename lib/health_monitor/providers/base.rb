@@ -1,10 +1,12 @@
 # frozen_string_literal: true
+require "health_monitor/cache"
 
 module HealthMonitor
   module Providers
     class Base
-      @global_configuration = nil
+      include Cache
 
+      @global_configuration = nil
       attr_reader :request
       attr_accessor :configuration
 
