@@ -5,7 +5,7 @@ require 'health_monitor/version'
 
 #TODO update metadata
 Gem::Specification.new do |s|
-  s.name = 'health-monitor-rails' #'health-monitor-rails-starter'
+  s.name = 'health-monitor-rails'
   s.version = HealthMonitor::VERSION
   s.platform = Gem::Platform::RUBY
   s.authors = ['Leonid Beder']
