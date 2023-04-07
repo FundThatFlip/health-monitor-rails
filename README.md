@@ -343,11 +343,11 @@ end
 ```
 ### Adding provider-level caching
 Note: Caching disabled by default.
-First set `provider_cache` to add a dedicated cache instance to store provider results. Then pass `cache_interval` for a given provider.
+First set `provider_results_cache` to add a dedicated cache instance to store provider results. Then pass `cache_interval` for a given provider.
 
 ```ruby
 HealthMonitor.configure do |config|
-  config.provider_cache = ActiveSupport::Cache::MemoryStore.new
+  config.provider_results_cache = ActiveSupport::Cache::MemoryStore.new
 end
 ```
 
@@ -374,7 +374,6 @@ HealthMonitor.configure do |config|
   end
 end
 ```
-
 
 ### Customizing the path
 

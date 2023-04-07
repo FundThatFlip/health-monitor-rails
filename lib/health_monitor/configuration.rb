@@ -9,7 +9,7 @@ module HealthMonitor
                   :error_callback,
                   :hide_footer,
                   :path,
-                  :provider_cache
+                  :provider_results_cache
     attr_reader :providers
 
     def initialize
