@@ -24,10 +24,9 @@ module HealthMonitor
       providers = providers.select { |provider| params[:providers].include?(provider.provider_name.downcase) }
     end
 
-    # TODO - yield cache_result if provider.cachable?
     results = providers.map do |provider|
       if provider.cachable?
-        configuration.provider_cache.fetch(provider.cache_key, expires_in: provider.get_cache_interval) do
+        configuration.provider_results_cache.fetch(provider.cache_key, expires_in: provider.get_cache_interval) do
           provider_result(provider, request)
         end
       else

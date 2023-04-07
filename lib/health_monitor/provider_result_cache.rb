@@ -1,10 +1,4 @@
-# TODO remove
-require "pry"
-require "pry-nav"
-
-# TODO: rename ProviderCache
-#       rename configuration.provider_cache -> configuration.provider_cache_instance
-module Cache
+module ProviderResultCache
   def self.included(klass)
     klass.extend ClassMethods
   end
@@ -27,7 +21,7 @@ module Cache
     end
 
     def cachable?
-      @cachable ||= HealthMonitor.configuration.provider_cache && @cache_interval
+      @cachable ||= HealthMonitor.configuration.provider_results_cache && @cache_interval
     end
   end
 end
