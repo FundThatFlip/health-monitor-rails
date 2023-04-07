@@ -2,9 +2,8 @@ name: Publish Ruby Gem
 
 on:
   push:
-    branches:
-      - main
-      - v9.x.x
+    tags:
+      - 'v*.*.*'
   workflow_dispatch:
 
 jobs:
