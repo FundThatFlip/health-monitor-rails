@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require "health_monitor/provider_result_cache"
+
+require 'health_monitor/provider_result_cache'
 
 module HealthMonitor
   module Providers
