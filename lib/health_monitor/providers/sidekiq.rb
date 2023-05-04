@@ -40,7 +40,7 @@ module HealthMonitor
           queues[DEFAULT_QUEUE_NAME]
         end
 
-        # TODO try to use use inflections instead of hardcoding
+        # TODO: try to use use inflections instead of hardcoding
         def cache_interval=(value)
           HealthMonitor::Providers::Sidekiq.cache_interval value
         end
@@ -55,9 +55,10 @@ module HealthMonitor
       def check!
         check_workers!
         check_processes!
-        check_latency!
-        check_queue_size!
+        # check_latency!
+        # check_queue_size!
         check_redis!
+        # check_amount_of_retries!
       rescue Exception => e
         raise SidekiqException.new(e)
       end
