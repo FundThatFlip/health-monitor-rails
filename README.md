@@ -328,6 +328,30 @@ HealthMonitor.configure do |config|
   }
 end
 ```
+
+### Marking providers as non critical
+Marking providers as non critical will return the status `WARNING` for a failing provider and will still return a response status code of 200 `:ok`.  
+Critical providers return `ERROR` for a failing provider. The response status code will _only_ return a 503 `:service_unavailable` if a critical provider fails.
+
+#### Setting critical flag for a custom provider
+```ruby
+class CustomProvider < HealthMonitor::Providers::Base
+  self.critical = false
+
+  def check!
+    raise 'Oh oh!'
+  end
+end
+```
+#### Setting critical flag for an in-house provider
+```ruby
+HealthMonitor.configure do |config|
+  config.cache.configure do |cache_config|
+    cache_config.critical = false
+  end
+end
+```
+
 ### Adding provider-level caching
 Note: Caching disabled by default.
 First set `provider_results_cache` to add a dedicated cache instance to store provider results. Then pass `cache_interval` for a given provider.
