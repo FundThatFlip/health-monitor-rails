@@ -12,11 +12,11 @@ module HealthMonitor
 
       module InstanceMethods
         def cache_interval=(value)
-          self.class.name.deconstantize.constantize.cache_interval value
+          self.class.name.deconstantize.constantize.cache_interval = value
         end
 
         def critical=(bool)
-          self.class.name.deconstantize.constantize.critical=bool
+          self.class.name.deconstantize.constantize.critical = bool
         end
       end
     end
