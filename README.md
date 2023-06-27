@@ -341,7 +341,7 @@ end
 #### Setting cache interval for a custom provider
 ```ruby
 class CustomProvider < HealthMonitor::Providers::Base
-  cache_interval 1.minute
+  self.cache_interval = 1.minute
 
   def check!
     raise 'Oh oh!'

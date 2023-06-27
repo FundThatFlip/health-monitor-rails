@@ -27,7 +27,7 @@ module HealthMonitor
 
     results = providers.map do |provider|
       if provider.cachable?
-        configuration.provider_results_cache.fetch(provider.cache_key, expires_in: provider.get_cache_interval) do
+        configuration.provider_results_cache.fetch(provider.cache_key, expires_in: provider.cache_interval) do
           provider_result(provider, request)
         end
       else

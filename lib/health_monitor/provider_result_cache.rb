@@ -10,11 +10,11 @@ module ProviderResultCache
     @cache_key = nil
     @cachable = nil
 
-    def cache_interval(value)
+    def cache_interval=(value)
       @cache_interval ||= value
     end
 
-    def get_cache_interval
+    def cache_interval
       @cache_interval
     end
 
