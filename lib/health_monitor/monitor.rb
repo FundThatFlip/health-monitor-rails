@@ -5,6 +5,7 @@ require 'health_monitor/configuration'
 module HealthMonitor
   STATUSES = {
     ok: 'OK',
+    warning: 'WARNING',
     error: 'ERROR'
   }.freeze
 
@@ -36,7 +37,7 @@ module HealthMonitor
 
     {
       results: results,
-      status: results.any? { |res| res[:status] != STATUSES[:ok] } ? :service_unavailable : :ok,
+      status: results.any? { |res| res[:status] == STATUSES[:error] } ? :service_unavailable : :ok,
       timestamp: Time.now.to_formatted_s(:rfc2822)
     }
   end
@@ -58,7 +59,7 @@ module HealthMonitor
     {
       name: provider.provider_name,
       message: e.message,
-      status: STATUSES[:error]
+      status: provider.critical ? STATUSES[:error] : STATUSES[:warning]
     }
   end
 end

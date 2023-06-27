@@ -1,15 +1,29 @@
 # frozen_string_literal: true
 
 require 'health_monitor/provider_result_cache'
+require 'health_monitor/providers/shared_configuration'
 
 module HealthMonitor
   module Providers
     class Base
       include ProviderResultCache
 
+      DEFAULT_CRITICAL=true
+
       @global_configuration = nil
+
       attr_reader :request
       attr_accessor :configuration
+
+      def self.critical
+        # memoize boolean
+        return @critical if defined? @critical
+        @critical = DEFAULT_CRITICAL
+      end
+
+      def self.critical=(bool)
+        @critical ||= bool
+      end
 
       def self.provider_name
         @provider_name ||= name.demodulize
