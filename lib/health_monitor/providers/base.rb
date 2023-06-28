@@ -22,7 +22,9 @@ module HealthMonitor
       end
 
       def self.critical=(bool)
-        @critical ||= bool
+        # memoize boolean
+        return @critical if defined? @critical
+        @critical = bool
       end
 
       def self.provider_name
