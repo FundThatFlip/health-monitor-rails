@@ -9,9 +9,7 @@ module HealthMonitor
 
     class Resque < Base
       class Configuration
-        def cache_interval=(value)
-          HealthMonitor::Providers::Resque.cache_interval value
-        end
+        include SharedConfiguration
       end
 
       def check!

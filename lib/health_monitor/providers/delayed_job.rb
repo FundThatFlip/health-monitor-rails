@@ -9,16 +9,14 @@ module HealthMonitor
 
     class DelayedJob < Base
       class Configuration
+        include SharedConfiguration
+
         DEFAULT_QUEUES_SIZE = 100
 
         attr_accessor :queue_size
 
         def initialize
           @queue_size = DEFAULT_QUEUES_SIZE
-        end
-
-        def cache_interval=(value)
-          HealthMonitor::Providers::DelayedJob.cache_interval value
         end
       end
 
