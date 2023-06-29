@@ -8,9 +8,7 @@ module HealthMonitor
 
     class Cache < Base
       class Configuration
-        def cache_interval=(value)
-          HealthMonitor::Providers::Cache.cache_interval value
-        end
+        include SharedConfiguration
       end
 
       def check!

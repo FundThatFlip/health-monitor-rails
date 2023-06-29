@@ -10,16 +10,14 @@ module HealthMonitor
 
     class Redis < Base
       class Configuration
+        include SharedConfiguration
+
         DEFAULT_URL = nil
 
         attr_accessor :url, :connection, :max_used_memory
 
         def initialize
           @url = DEFAULT_URL
-        end
-
-        def cache_interval=(value)
-          HealthMonitor::Providers::Redis.cache_interval value
         end
       end
 
