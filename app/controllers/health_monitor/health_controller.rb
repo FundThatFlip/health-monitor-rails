@@ -22,7 +22,7 @@ module HealthMonitor
     end
 
     def print
-      puts self.request.env.select {|k,v| k =~ /^HTTP_/}
+      puts JSON.pretty_generate(self.request.env.reject {|k,v| /action_dispatch\..*/ =~ k})
     end
 
     private
