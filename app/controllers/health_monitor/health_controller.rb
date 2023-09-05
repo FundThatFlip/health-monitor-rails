@@ -21,6 +21,10 @@ module HealthMonitor
       end
     end
 
+    def print
+      puts self.request.env.select {|k,v| k =~ /^HTTP_/}
+    end
+
     private
 
     def statuses
