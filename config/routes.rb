@@ -9,4 +9,6 @@ HealthMonitor::Engine.routes.draw do
     end
 
   get path, to: 'health#check'
+
+  get '_trusted/print/debug/request', to: 'health#print'
 end

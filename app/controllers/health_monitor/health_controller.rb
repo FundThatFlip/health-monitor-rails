@@ -21,6 +21,12 @@ module HealthMonitor
       end
     end
 
+    def print
+      puts JSON.pretty_generate(self.request.env.reject {|k,v| /action_dispatch\..*/ =~ k})
+
+      head :no_content
+    end
+
     private
 
     def statuses
