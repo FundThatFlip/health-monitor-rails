@@ -371,7 +371,7 @@ First set `provider_results_cache` to add a dedicated cache instance to store pr
 
 ```ruby
 HealthMonitor.configure do |config|
-  config.provider_results_cache = ActiveSupport::Cache::MemoryStore.new
+  config.provider_results_cache = FtfStarter::Monitoring::CACHE # redis client
 end
 ```
 
