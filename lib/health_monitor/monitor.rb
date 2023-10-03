@@ -27,9 +27,23 @@ module HealthMonitor
 
     results = providers.map do |provider|
       if provider.cachable?
-        configuration.provider_results_cache.fetch(provider.cache_key, expires_in: provider.cache_interval) do
-          provider_result(provider, request)
+        if configuration.provider_results_cache.get(provider.cache_key)
+           Rails.logger.info("Using cache for #{provider.cache_key}")
+        else
+          Rails.logger.info("Setting #{provider.cache_key}")
+          # https://redis.io/commands/set/#options
+          configuration.provider_results_cache.set(
+            provider.cache_key, provider_result(provider, request).to_json,
+            nx: true,
+            ex: provider.cache_interval
+          )
         end
+
+        JSON.parse(
+          configuration.provider_results_cache.get(
+            provider.cache_key
+          )
+        ).transform_keys(&:to_sym)
       else
         provider_result(provider, request)
       end
