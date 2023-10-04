@@ -11,13 +11,22 @@ module HealthMonitor
     end
 
     def check
-      @statuses = statuses
-      @hide_footer = HealthMonitor.configuration.hide_footer
+      begin
+        HealthMonitor.configuration.concurrency_limiter.within_limit do
+          @statuses = statuses
+          @hide_footer = HealthMonitor.configuration.hide_footer
 
-      respond_to do |format|
-        format.html
-        format.json { render json: @statuses.to_json, status: @statuses[:status] }
-        format.xml { render xml: @statuses.to_xml, status: @statuses[:status] }
+          respond_to do |format|
+            format.html
+            format.json { render json: @statuses.to_json, status: @statuses[:status] }
+            format.xml { render xml: @statuses.to_xml, status: @statuses[:status] }
+          end
+        end
+      rescue Sidekiq::Limiter::OverLimit => e
+        respond_to do |format|
+          format.json { render json: "Resource Locked", status: :locked }
+          format.xml { render xml: "Resource Locked", status: :locked }
+        end
       end
     end
 

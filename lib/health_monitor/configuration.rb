@@ -9,7 +9,8 @@ module HealthMonitor
                   :error_callback,
                   :hide_footer,
                   :path,
-                  :provider_results_cache
+                  :provider_results_cache,
+                  :concurrency_limiter
     attr_reader :providers
 
     def initialize
